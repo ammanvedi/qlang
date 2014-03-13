@@ -21,11 +21,13 @@ terminal PLUS, MINUS, MULTIPLY, DIVIDE, POWER;
 terminal IN, LENGTH, CONCAT;
 terminal LESSTHAN, LESSTHANEQUAL, GREATERTHAN, GREATERTHANEQUAL, EQUAL, NOTEQUAL;
 
-terminal IF, ELSE, REPEAT, UNTIL, RETURN, DO, WHILE;
+terminal IF, ELSE, REPEAT, UNTIL, RETURN, DO, WHILE, FOREACH;
 
 non terminal read_statement, print_statement;
 non terminal dictionary;
 non terminal dict_list, dict_list2, keyvalpair, dict;
+
+non terminal foreach;
 
 non terminal type;
 non terminal expression, term, factor, exponent, final, accessor;
@@ -131,6 +133,7 @@ assignment
 | return
 | read_statement
 | print_statement
+| foreach
 ;
 
 ifelse ::= 
@@ -165,6 +168,9 @@ RETURN expression SEMICOLON
 assignment ::= 
 accessor ASSIGN expression SEMICOLON
 ;
+
+foreach ::=
+FOREACH LEFTPAREN ID COLON ID RIGHTPAREN block;
 
 sequence ::=
 STRINGLITERAL

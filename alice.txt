@@ -17,4 +17,9 @@ return l2;
 }
 
 def void main(){
+
+	foreach ( ab : x){ 
+		print x;
+	}
+	
 }
