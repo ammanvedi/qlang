@@ -1,0 +1,9 @@
+def list reverse (list l) {
+list l2 = [];
+int i = 0;
+while (i < len(l)) do {
+l2 = l[i] :: l2;
+i = i+1;
+}
+return l2;
+}
