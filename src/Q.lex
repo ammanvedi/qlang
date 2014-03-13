@@ -42,6 +42,12 @@ CharLiteral = "'"."'"
 {Whitespace} {}
 {LineComment} {}
 
+
+//read 
+"read"				{return h.sym(sym.READ);}
+"print"				{return h.sym(sym.PRINT);}
+"dict"				{return h.sym(sym.DICT);}
+
 // Types
 "bool"				{return h.sym(sym.BOOL); }
 "int"				  {return h.sym(sym.INT); }

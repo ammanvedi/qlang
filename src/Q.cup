@@ -6,10 +6,14 @@ terminal LEFTBRACKET, RIGHTBRACKET;
 terminal LEFTTBRACKET, RIGHTTBRACKET;
 terminal LEFTPAREN, RIGHTPAREN;
 
+
 terminal BOOL, INT, FLOAT, STRING, LIST, CHAR, TUPLE, VOID;
 terminal ID, BOOLLITERAL, INTLITERAL, FLOATLITERAL, STRINGLITERAL, CHARLITERAL;
 
 terminal FDEF, TDEF;
+
+terminal DICT;
+terminal READ, PRINT;
 
 terminal ASSIGN;
 terminal NOT, OR, AND;
@@ -18,6 +22,10 @@ terminal IN, LENGTH, CONCAT;
 terminal LESSTHAN, LESSTHANEQUAL, GREATERTHAN, GREATERTHANEQUAL, EQUAL, NOTEQUAL;
 
 terminal IF, ELSE, REPEAT, UNTIL, RETURN, DO, WHILE;
+
+non terminal read_statement, print_statement;
+non terminal dictionary;
+non terminal dict_list, dict_list2, keyvalpair, dict;
 
 non terminal type;
 non terminal expression, term, factor, exponent, final, accessor;
@@ -35,6 +43,7 @@ non terminal block, statement_list, statement;
 non terminal ifelse, repeatuntil, while, assignment, function_call, return;
 non terminal program;
 
+
 precedence right POWER;
 precedence left DIVIDE, MULTIPLY;
 precedence left PLUS, MINUS;
@@ -46,7 +55,7 @@ precedence nonassoc LESSTHAN, LESSTHANEQUAL, GREATERTHAN, GREATERTHANEQUAL, EQUA
 
 start with program;
 
-type ::= BOOL | INT | FLOAT | STRING | CHAR | LIST | TUPLE | ID;
+type ::= BOOL | INT | FLOAT | STRING | CHAR | LIST | TUPLE | ID | DICT;
 
 //global_decl_list block
 
@@ -120,6 +129,8 @@ assignment
 | while
 | repeatuntil
 | return
+| read_statement
+| print_statement
 ;
 
 ifelse ::= 
@@ -136,6 +147,14 @@ REPEAT LEFTBRACE statement_list RIGHTBRACE UNTIL LEFTPAREN expression RIGHTPAREN
 
 function_call ::=
 ID LEFTPAREN expression_clist RIGHTPAREN
+;
+
+read_statement ::= 
+READ ID SEMICOLON
+;
+
+print_statement ::=
+PRINT expression_clist SEMICOLON
 ;
 
 return ::= 
@@ -158,13 +177,32 @@ ID
 | accessor DOT ID
 ;
 
-tuple ::=
-LEFTTBRACKET expression_clist RIGHTTBRACKET
-;
+
 
 list ::= 
 LEFTBRACKET expression_clist RIGHTBRACKET
 ;
+
+dictionary ::= {: System.out.println("parsed dictionary"); :}
+dict
+;
+
+dict::= 
+LEFTTBRACKET dict_list RIGHTTBRACKET 
+;
+
+keyvalpair::=
+term COLON term {: System.out.println("keyval"); :}
+;
+
+//two-productions are needed to avoid ambiguity
+dict_list ::= keyvalpair dict_list2
+| dict_list2;
+
+dict_list2 ::= 
+COMMA keyvalpair dict_list2
+|;
+
 
 expression_clist ::= 
 expression expression_clist2
@@ -224,4 +262,5 @@ accessor
 | function_call
 | LENGTH LEFTPAREN expression RIGHTPAREN
 | sequence // This includes STRINGLITERAL
+| dictionary
 ;
