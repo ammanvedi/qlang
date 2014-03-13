@@ -29,6 +29,8 @@ non terminal dict_list, dict_list2, keyvalpair, dict;
 
 non terminal foreach;
 
+non terminal mainfunction;
+
 non terminal type;
 non terminal expression, term, factor, exponent, final, accessor;
 non terminal sequence, list, tuple;
@@ -76,9 +78,12 @@ datatype_decl
 | function_decl
 ;
 
+
+
+
 function_decl ::= 
 FDEF function_type ID LEFTPAREN parameter_clist RIGHTPAREN block
-| FDEF function_type ID block;
+| FDEF function_type ID block | VOID ID block;
 
 var_type ::= 
 type ID

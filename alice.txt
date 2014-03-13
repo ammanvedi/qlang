@@ -4,8 +4,6 @@ string c = "hello world!";
 person d = "Shin", "Yoo", 30;
 char e = ’a’;
 list f = [ ’a’, ’b’, ’c’, ’d’ ];
-
-
 def list reverse (list l) {
 list l2 = [];
 int i = 0;
@@ -16,10 +14,14 @@ i = i+1;
 return l2;
 }
 
-def void main(){
+void main{
 
 	foreach ( ab : x){ 
 		print x;
 	}
+	
+	print "hello", 0, 0.1, abc, 'a';
+	
+	read x;
 	
 }
