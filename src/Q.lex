@@ -114,6 +114,7 @@ CharLiteral = "'"."'"
 "do"  				{return h.sym(sym.DO); }
 "until"				{return h.sym(sym.UNTIL); }
 "return"			{return h.sym(sym.RETURN); }
+"foreach"           {return h.sym(sym.FOREACH); }
 
 // Identifier
 {Identifier}		{return h.sym(sym.ID, yytext());}
