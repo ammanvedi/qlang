@@ -23,6 +23,7 @@
 
 Whitespace = [\ \t\n\r]+
 NewLine = \r|\n|\r\n
+SingleComment = "\/\/"[^\n]*"\n"  //eat one line comments
 
 LineComment = "//".*{NewLine}
 
@@ -40,7 +41,8 @@ CharLiteral = "'"."'"
 <YYINITIAL> {
 
 {Whitespace} {}
-{LineComment} {}
+{LineComment} {} 
+{SingleComment} {}
 
 // Types
 "bool"				{return h.sym(sym.BOOL); }
