@@ -1,3 +1,5 @@
+tdef person : name:string, amman:int, amman:int, lol:bool, ahahahahaha:int;
+
 
 def list reverse (list l) 
 {	

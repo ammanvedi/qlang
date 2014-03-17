@@ -50,6 +50,7 @@ terminal IF, ELSE, REPEAT, UNTIL, RETURN, DO, WHILE, FOREACH;
 non terminal read_statement, print_statement;
 non terminal dictionary;
 non terminal dict_list, dict_list2, keyvalpair, dict;
+non terminal tdef_clist, tdef_clist2;
 
 non terminal foreach;
 
@@ -121,8 +122,19 @@ ASSIGN expression_clist
 |
 ;
 
+
+
+tdef_clist ::=
+ID COLON type tdef_clist2
+|;
+
+tdef_clist2 ::=
+COMMA ID COLON type tdef_clist2
+|
+;
+
 datatype_decl ::=
-TDEF ID COLON parameter_clist SEMICOLON
+TDEF ID COLON tdef_clist SEMICOLON
 ;
 
 function_type ::= 
