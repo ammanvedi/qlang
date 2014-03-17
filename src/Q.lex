@@ -48,8 +48,7 @@ CharLiteral = "'"."'"
 <YYINITIAL> {
 
 {Whitespace} {}
-{LineComment} {} 
-{SingleComment} {}
+
 
 // Types
 "bool"				{return h.sym(sym.BOOL); }
