@@ -3,6 +3,7 @@
 %class Lexer
 %unicode
 %cup
+
 %line
 %column
 %states INCOMMENT
@@ -23,9 +24,16 @@
 
 Whitespace = [\ \t\n\r]+
 NewLine = \r|\n|\r\n
-SingleComment = "\/\/"[^\n]*"\n"  //eat one line comments
 
-LineComment = "//".*{NewLine}
+InputCharacter = [^\r\n]
+LineTerminator = \r|\n|\r\n
+
+Comment =  {LineComment} | {MultiComment} | {NormalComment} |
+
+NormalComment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+LineComment = "//" {InputCharacter}* {LineTerminator}?
+MultiComment = "/*" "*"+ [^/*] ~"*/"
+
 
 Identifier = [:jletter:] [:jletterdigit:]*
 BooleanLiteral = "true" | "false"
@@ -41,8 +49,7 @@ CharLiteral = "'"."'"
 <YYINITIAL> {
 
 {Whitespace} {}
-{LineComment} {} 
-{SingleComment} {}
+
 
 // Types
 "bool"				{return h.sym(sym.BOOL); }
@@ -144,8 +151,7 @@ CharLiteral = "'"."'"
 					{
 						yypushback(1);
 						yybegin(YYINITIAL);
-						System.err.println("Error: unknown input " + badinput + " found at line " + yyline + ", character " + yycolumn);
+						System.err.println("Error found - " + badinput + " found at line number: " + yyline + ", character number: " + yycolumn);
 					}
 . 					{badinput.append(yytext());}
 }
-
