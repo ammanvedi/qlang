@@ -1,5 +1,29 @@
 import java_cup.runtime.*;
 
+
+
+parser code  {: 
+  public void report_error(String message, Object info) {
+    StringBuilder a = new StringBuilder("Error ");
+
+    if (info instanceof java_cup.runtime.Symbol) 
+      a.append( "("+info.toString()+")" );
+     
+    a.append(" : "+message);
+   
+    System.out.println(m);
+  }
+   
+  public void report_fatal_error(String message, Object info) {
+    report_error(message, info);
+    throw new RuntimeException("Fatal Syntax Error - Please look into this!!! - or dont...");
+  }
+:};
+
+
+
+
+
 terminal SEMICOLON, COMMA, DOT, COLON;
 terminal LEFTBRACE, RIGHTBRACE;
 terminal LEFTBRACKET, RIGHTBRACKET;

@@ -26,6 +26,18 @@ NewLine = \r|\n|\r\n
 
 LineComment = "//".*{NewLine}
 
+
+InputCharacter = [^\r\n]
+LineTerminator = \r|\n|\r\n
+
+Comment =  {LineComment} | {MultiComment} | {NormalComment} |
+
+NormalComment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+LineComment = "//" {InputCharacter}* {LineTerminator}?
+MultiComment = "/*" "*"+ [^/*] ~"*/"
+
+
+
 Identifier = [:jletter:] [:jletterdigit:]*
 BooleanLiteral = "true" | "false"
 IntegerLiteral = ("-")?[:digit:]+
