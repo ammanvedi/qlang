@@ -23,9 +23,17 @@
 
 Whitespace = [\ \t\n\r]+
 NewLine = \r|\n|\r\n
-SingleComment = "\/\/"[^\n]*"\n"  //eat one line comments
 
-LineComment = "//".*{NewLine}
+InputCharacter = [^\r\n]
+LineTerminator = \r|\n|\r\n
+
+Comment = {TraditionalComment} | {EndOfLineComment} | 
+          {DocumentationComment}
+
+TraditionalComment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+EndOfLineComment = "//" {InputCharacter}* {LineTerminator}?
+DocumentationComment = "/*" "*"+ [^/*] ~"*/"
+
 
 Identifier = [:jletter:] [:jletterdigit:]*
 BooleanLiteral = "true" | "false"
