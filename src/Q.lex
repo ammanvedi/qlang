@@ -27,12 +27,11 @@ NewLine = \r|\n|\r\n
 InputCharacter = [^\r\n]
 LineTerminator = \r|\n|\r\n
 
-Comment = {TraditionalComment} | {EndOfLineComment} | 
-          {DocumentationComment}
+Comment =  {LineComment} | {MultiComment} | {NormalComment} |
 
-TraditionalComment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
-EndOfLineComment = "//" {InputCharacter}* {LineTerminator}?
-DocumentationComment = "/*" "*"+ [^/*] ~"*/"
+NormalComment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+LineComment = "//" {InputCharacter}* {LineTerminator}?
+MultiComment = "/*" "*"+ [^/*] ~"*/"
 
 
 Identifier = [:jletter:] [:jletterdigit:]*
