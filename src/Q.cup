@@ -1,5 +1,25 @@
 import java_cup.runtime.*;
 
+
+parser code  {: 
+  public void report_error(String message, Object info) {
+    StringBuilder a = new StringBuilder("Error ");
+
+    if (info instanceof java_cup.runtime.Symbol) 
+      a.append( "("+info.toString()+")" );
+     
+    a.append(" : "+message);
+   
+    System.out.println(m);
+  }
+   
+  public void report_fatal_error(String message, Object info) {
+    report_error(message, info);
+    throw new RuntimeException("Fatal Syntax Error - Please look into this!!! - or dont...");
+  }
+:};
+
+
 terminal SEMICOLON, COMMA, DOT, COLON;
 terminal LEFTBRACE, RIGHTBRACE;
 terminal LEFTBRACKET, RIGHTBRACKET;
@@ -17,7 +37,7 @@ terminal PLUS, MINUS, MULTIPLY, DIVIDE, POWER;
 terminal IN, LENGTH, CONCAT;
 terminal LESSTHAN, LESSTHANEQUAL, GREATERTHAN, GREATERTHANEQUAL, EQUAL, NOTEQUAL;
 
-terminal IF, ELSE, REPEAT, UNTIL, RETURN, DO, WHILE, FOREACH;
+terminal IF, ELSE, REPEAT, UNTIL, RETURN, DO, WHILE;
 
 non terminal type;
 non terminal expression, term, factor, exponent, final, accessor;
@@ -66,11 +86,10 @@ datatype_decl
 ;
 
 function_decl ::= 
-FDEF function_type ID LEFTPAREN parameter_clist RIGHTPAREN block
-| FDEF function_type ID block;
+FDEF ID LEFTPAREN parameter_clist RIGHTPAREN COLON function_type block;
 
 var_type ::= 
-type ID
+ID COLON type
 ; 
 
 var_decl ::= 
@@ -145,10 +164,6 @@ RETURN expression SEMICOLON
 
 assignment ::= 
 accessor ASSIGN expression SEMICOLON
-;
-
-foreach ::=
-FOREACH LEFTPAREN ID COLON ID RIGHTPAREN LEFTBRACE statement_list RIGHTBRACE block
 ;
 
 sequence ::=
