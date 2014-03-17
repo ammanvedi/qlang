@@ -7,7 +7,6 @@
 /** CUP generated interface containing symbol constants. */
 public interface sym {
 	/* terminals */
-	/* terminals */
 	  public static final int GREATERTHAN = 47;
 	  public static final int CHARLITERAL = 27;
 	  public static final int LEFTBRACKET = 8;

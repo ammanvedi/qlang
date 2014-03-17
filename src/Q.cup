@@ -44,7 +44,7 @@ non terminal global_decl_list, global_decl, local_decl_list;
 non terminal datatype_decl;
 
 non terminal block, statement_list, statement;
-non terminal ifelse, repeatuntil, while, assignment, function_call, return;
+non terminal ifelse, if, repeatuntil, while, assignment, function_call, return;
 non terminal program;
 
 
@@ -133,6 +133,7 @@ statement ::=
 assignment
 | function_call
 | ifelse
+| if
 | while
 | repeatuntil
 | return
@@ -143,7 +144,9 @@ assignment
 
 ifelse ::= 
 IF LEFTPAREN expression RIGHTPAREN LEFTBRACE statement_list RIGHTBRACE ELSE LEFTBRACE statement_list RIGHTBRACE
+| IF LEFTPAREN expression RIGHTPAREN LEFTBRACE statement_list RIGHTBRACE
 ;
+
 
 while ::=
 WHILE LEFTPAREN expression RIGHTPAREN DO LEFTBRACE statement_list RIGHTBRACE
@@ -175,7 +178,7 @@ accessor ASSIGN expression SEMICOLON
 ;
 
 foreach ::=
-FOREACH LEFTPAREN ID COLON ID RIGHTPAREN block;
+FOREACH LEFTPAREN ID COLON ID RIGHTPAREN LEFTBRACE statement_list RIGHTBRACE;
 
 sequence ::=
 STRINGLITERAL
